@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Sign-in failure banner */
+.auth-error {
+    @apply fixed top-3 inset-x-3 sm:inset-x-auto sm:right-3 sm:w-96 z-[9999] bg-red-50 border border-red-300 text-red-800 text-sm rounded-lg px-4 py-3 shadow-xl cursor-pointer;
+}
+
+.auth-error small {
+    @apply block text-red-600 font-normal mt-1;
+}
+
+
 @theme {
     --color-background: #fdfbf7;
     --color-foreground: #1a1a1a;
@@ -350,6 +360,14 @@
 
                 .render-fallback {
                     @apply w-full h-full object-contain opacity-50;
+                }
+
+                .render-error {
+                    @apply flex flex-col items-center gap-3 text-center max-w-md;
+
+                    p {
+                        @apply text-sm text-red-600;
+                    }
                 }
 
                 .render-overlay {
