@@ -33,7 +33,9 @@ export const generate3DView = async ({ sourceImage }: Generate3DViewParams) => {
 
   const response = await puter.ai.txt2img(ARQIVE_RENDER_PROMPT, {
     provider: "gemini",
-    model: "gemini-2.5-flash-image-preview",
+    // "gemini-2.5-flash-image-preview" was retired; this is a current Puter model
+    model: "gemini-3.1-flash-image",
+    quality: "1K",
     input_image: base64Data,
     input_image_mime_type: mimeType,
     ratio: { w: 1024, h: 1024 },

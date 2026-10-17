@@ -55,6 +55,7 @@ const DEFAULT_AUTH_STATE: AuthState = {
 
 export default function App() {
   const [authState, setAuthState] = useState<AuthState>(DEFAULT_AUTH_STATE);
+  const [authError, setAuthError] = useState<string | null>(null);
   const refreshAuth = async () => {
     try {
       const user = await getCurrentUser();
@@ -76,7 +77,22 @@ export default function App() {
   }, []);
 
   const signIn = async () => {
-    await puterSignIn();
+    try {
+      await puterSignIn();
+      setAuthError(null);
+    } catch (e) {
+      console.error("Puter sign-in failed:", e);
+
+      const reason =
+        (e as { msg?: string; error?: string; message?: string })?.msg ||
+        (e as { error?: string })?.error ||
+        (e instanceof Error ? e.message : "");
+      setAuthError(
+        reason
+          ? `Sign-in failed: ${reason}`
+          : "Sign-in didn't complete. Allow popups for this site and try again.",
+      );
+    }
     return await refreshAuth();
   };
 
@@ -87,6 +103,11 @@ export default function App() {
 
   return (
     <main className="min-h-screen bg-background text-foreground z-10">
+      {authError && (
+        <div className="auth-error" role="alert" onClick={() => setAuthError(null)}>
+          {authError} <small>(click to dismiss)</small>
+        </div>
+      )}
       <Outlet
         context={{
           ...authState,

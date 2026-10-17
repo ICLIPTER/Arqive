@@ -19,6 +19,8 @@ const VisualizerId = () => {
     initialRender || null,
   );
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const handleBack = () => {
     navigate("/");
   };
@@ -28,12 +30,13 @@ const VisualizerId = () => {
 
     try {
       setIsProcessing(true);
+      setErrorMessage(null);
 
       const result = await generate3DView({
         sourceImage: initialImage,
       });
 
-      if (result?.renderedImage) {
+      if (result.renderedImage) {
         setCurrentImage(result.renderedImage);
 
         // TODO:
@@ -41,6 +44,12 @@ const VisualizerId = () => {
       }
     } catch (error) {
       console.error("Generation failed:", error);
+
+      const message =
+        (error as { message?: string })?.message ||
+        (error instanceof Error ? error.message : "Generation failed. Please try again.");
+
+      setErrorMessage(message);
     } finally {
       setIsProcessing(false);
     }
@@ -116,12 +125,23 @@ const VisualizerId = () => {
               <img src={currentImage} alt="AI Render" className="render-img" />
             ) : (
               <div className="render-placeholder">
-                {initialImage && (
-                  <img
-                    src={initialImage}
-                    alt="Original"
-                    className="render-fallback"
-                  />
+                {errorMessage && !isProcessing ? (
+                  <div className="render-error">
+                    <p>{errorMessage}</p>
+
+                    <Button size="sm" onClick={runGeneration}>
+                      <RefreshCcw className="w-4 h-4 mr-2" />
+                      Retry
+                    </Button>
+                  </div>
+                ) : (
+                  initialImage && (
+                    <img
+                      src={initialImage}
+                      alt="Original"
+                      className="render-fallback"
+                    />
+                  )
                 )}
               </div>
             )}
