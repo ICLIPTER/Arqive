@@ -25,6 +25,7 @@ interface DesignItem {
   sharedBy?: string | null;
   sharedAt?: string | null;
   isPublic?: boolean;
+  visibility?: "private" | "public";
 }
 
 interface DesignConfig {
@@ -124,4 +125,13 @@ interface CreateProjectParams {
 interface Generate3DViewParams {
   sourceImage: string;
   projectId?: string | null;
+}
+
+interface GalleryItem {
+  id: string;
+  projectId: string;
+  name: string;
+  renderImage: string;
+  author?: string | null;
+  timestamp: number;
 }
