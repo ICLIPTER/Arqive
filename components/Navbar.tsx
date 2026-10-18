@@ -1,11 +1,24 @@
-import { Box } from "lucide-react";
+import { Box, Menu, X } from "lucide-react";
 import Button from "./ui/Button";
-import { useOutletContext } from "react-router";
+import { Link, useOutletContext } from "react-router";
+import { useState } from "react";
+
+const NAV_LINKS = [
+  { href: "/product", label: "Product" },
+  { href: "/gallery", label: "Gallery" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/community", label: "Community" },
+  { href: "/enterprise", label: "Enterprise" },
+];
 
 const Navbar = () => {
   const { isSignedIn, userName, signIn, signOut } =
     useOutletContext<AuthContext>();
+  const [menuOpen, setMenuOpen] = useState(false);
+
   const handleAuthClick = async () => {
+    setMenuOpen(false);
+
     if (isSignedIn) {
       try {
         await signOut();
@@ -26,17 +39,20 @@ const Navbar = () => {
     <header className="navbar">
       <nav className="inner">
         <div className="left">
-          <div className="brand">
+          <Link to="/" className="brand" aria-label="Arqive home">
             <Box className="logo" />
             <span className="name">Arqive</span>
-          </div>
+          </Link>
+
           <ul className="links">
-            <a href="#">Product</a>
-            <a href="#">Pricing</a>
-            <a href="#">Community</a>
-            <a href="#">Enterprise</a>
+            {NAV_LINKS.map(({ href, label }) => (
+              <li key={href}>
+                <Link to={href}>{label}</Link>
+              </li>
+            ))}
           </ul>
         </div>
+
         <div className="actions">
           {isSignedIn ? (
             <>
@@ -58,8 +74,27 @@ const Navbar = () => {
               </a>
             </>
           )}
+
+          <button
+            className="menu-toggle"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((prev) => !prev)}
+          >
+            {menuOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </nav>
+
+      {menuOpen && (
+        <div className="mobile-menu">
+          {NAV_LINKS.map(({ href, label }) => (
+            <Link key={href} to={href} onClick={() => setMenuOpen(false)}>
+              {label}
+            </Link>
+          ))}
+        </div>
+      )}
     </header>
   );
 };

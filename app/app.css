@@ -161,6 +161,18 @@
                 .cta {
                     @apply inline-flex items-center justify-center rounded-md font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background disabled:opacity-50 disabled:cursor-not-allowed px-3 py-1.5 text-xs uppercase tracking-wide bg-primary text-white hover:bg-[#EA580C] shadow-sm;
                 }
+
+                .menu-toggle {
+                    @apply md:hidden w-9 h-9 rounded-md flex items-center justify-center text-zinc-700 hover:bg-zinc-100 cursor-pointer;
+                }
+            }
+        }
+
+        .mobile-menu {
+            @apply md:hidden absolute top-16 inset-x-0 bg-white/95 backdrop-blur-sm border-b border-zinc-200 shadow-lg flex flex-col px-6 py-4 gap-1 z-50;
+
+            a {
+                @apply py-2.5 text-sm font-medium text-zinc-700 border-b border-zinc-100 last:border-0 hover:text-primary transition-colors;
             }
         }
     }
@@ -329,6 +341,7 @@
                 }
 
                 .panel-actions {
+                    @apply flex flex-wrap gap-2;
                     @apply flex flex-wrap items-center gap-3;
 
                     .export {
@@ -368,6 +381,10 @@
                     p {
                         @apply text-sm text-red-600;
                     }
+                }
+
+                .upload-error {
+                    @apply text-sm text-red-600 mb-3 text-center;
                 }
 
                 .render-overlay {
@@ -440,7 +457,7 @@
             }
 
             h1 {
-                @apply text-6xl md:text-8xl font-serif leading-[0.95] text-black mb-8 max-w-5xl mx-auto;
+                @apply text-4xl sm:text-6xl md:text-8xl font-serif leading-[0.95] text-black mb-8 max-w-5xl mx-auto;
             }
 
             .subtitle {
@@ -613,5 +630,343 @@
         &.loading {
             @apply text-sm text-zinc-500;
         }
+    }
+
+    /* ---------- Shared marketing pages (home / product / pricing / community / enterprise) ---------- */
+    .page {
+        @apply min-h-screen bg-background text-foreground;
+    }
+
+    .page-hero {
+        @apply pt-32 pb-16 px-6 max-w-5xl mx-auto text-center flex flex-col items-center;
+
+        .eyebrow {
+            @apply text-[10px] font-bold uppercase tracking-widest text-zinc-500 mb-4;
+        }
+
+        h1 {
+            @apply text-4xl md:text-6xl font-serif leading-[1.05] text-black mb-6 max-w-3xl;
+
+            .accent {
+                @apply italic text-primary;
+            }
+        }
+
+        .lead {
+            @apply max-w-2xl text-sm md:text-base text-zinc-500 leading-relaxed;
+        }
+
+        .page-hero-actions {
+            @apply flex flex-col sm:flex-row gap-4 justify-center mt-8;
+        }
+    }
+
+    .section {
+        @apply py-16 px-6 max-w-7xl mx-auto border-t border-zinc-100;
+
+        &:first-of-type {
+            border-top: 0;
+        }
+    }
+
+    .section-head {
+        @apply flex flex-col items-center text-center mb-12 gap-3;
+
+        h2 {
+            @apply text-3xl md:text-4xl font-serif text-black;
+        }
+
+        p {
+            @apply text-zinc-500 text-sm max-w-2xl;
+        }
+    }
+
+    .feature-grid {
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+    }
+
+    .feature-card {
+        @apply bg-white rounded-xl border border-zinc-200 p-6 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col;
+
+        .feature-icon {
+            @apply w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4;
+        }
+
+        h3 {
+            @apply font-serif font-bold text-lg text-black mb-2;
+        }
+
+        p {
+            @apply text-sm text-zinc-500 leading-relaxed;
+        }
+
+        .feature-link {
+            @apply text-sm font-bold text-primary mt-4 hover:underline;
+        }
+    }
+
+    .testimonial {
+        blockquote {
+            @apply text-sm text-zinc-600 leading-relaxed mb-4 italic;
+        }
+
+        figcaption {
+            @apply mt-auto flex flex-col;
+
+            strong {
+                @apply text-sm text-black font-bold;
+            }
+
+            span {
+                @apply text-xs text-zinc-500;
+            }
+        }
+    }
+
+    .steps {
+        @apply grid grid-cols-1 md:grid-cols-3 gap-6;
+    }
+
+    .step {
+        @apply bg-surface rounded-xl border border-zinc-200 p-6 relative;
+
+        .step-num {
+            @apply inline-block text-xs font-mono font-bold text-primary border border-primary/30 bg-primary/5 rounded-md px-2 py-1 mb-4;
+        }
+
+        h3 {
+            @apply font-serif font-bold text-lg text-black mb-2;
+        }
+
+        p {
+            @apply text-sm text-zinc-500;
+        }
+    }
+
+    .showcase {
+        @apply grid grid-cols-1 lg:grid-cols-2 gap-10 items-center;
+
+        figure {
+            @apply rounded-2xl overflow-hidden border border-zinc-200 bg-white shadow-sm;
+
+            img {
+                @apply w-full object-contain max-h-96;
+            }
+
+            figcaption {
+                @apply text-xs text-zinc-500 text-center py-3 border-t border-zinc-100 font-mono uppercase tracking-wide;
+            }
+        }
+    }
+
+    .showcase-copy {
+        h2 {
+            @apply text-3xl md:text-4xl font-serif text-black mb-4;
+        }
+
+        p {
+            @apply text-sm md:text-base text-zinc-500 leading-relaxed mb-3;
+        }
+    }
+
+    .showcase-actions {
+        @apply flex gap-4;
+    }
+
+    .faq-list {
+        @apply max-w-3xl mx-auto flex flex-col gap-3;
+    }
+
+    .faq-item {
+        @apply bg-white border border-zinc-200 rounded-lg px-5 shadow-sm;
+
+        summary {
+            @apply cursor-pointer py-4 font-bold text-sm md:text-base text-black list-none;
+        }
+
+        summary::after {
+            content: "+";
+            @apply float-right text-zinc-400 select-none;
+        }
+
+        &[open] summary::after {
+            content: "–";
+        }
+
+        p {
+            @apply pb-4 text-sm text-zinc-500 leading-relaxed;
+        }
+    }
+
+    .section-cta {
+        @apply py-20 px-6 text-center flex flex-col items-center gap-4 border-t border-zinc-100;
+
+        h2 {
+            @apply text-3xl md:text-5xl font-serif text-black max-w-3xl;
+        }
+
+        p {
+            @apply text-zinc-500 text-sm;
+        }
+
+        .cta {
+            @apply inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-md font-bold text-sm uppercase tracking-wide hover:bg-[#ea580c] shadow-md transition-colors;
+        }
+    }
+
+    /* Pricing */
+    .pricing-grid {
+        @apply grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch;
+    }
+
+    .pricing-card {
+        @apply bg-white rounded-xl border border-zinc-200 p-8 shadow-sm flex flex-col relative;
+
+        &.is-featured {
+            @apply border-primary shadow-lg ring-1 ring-primary/20;
+        }
+
+        .ribbon {
+            @apply absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-white text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full;
+        }
+
+        h3 {
+            @apply font-serif font-bold text-xl text-black mb-2;
+        }
+
+        .price {
+            @apply text-4xl font-serif text-black mb-1;
+        }
+
+        .note {
+            @apply text-xs text-zinc-500 mb-6;
+        }
+
+        ul {
+            @apply flex flex-col gap-3 mb-8 grow;
+
+            li {
+                @apply flex items-start gap-2 text-sm text-zinc-600;
+
+                .check {
+                    @apply text-primary mt-0.5 shrink-0;
+                }
+            }
+        }
+    }
+
+    /* Enterprise */
+    .enterprise-strip {
+        @apply grid grid-cols-2 md:grid-cols-4 gap-6;
+
+        .strip-stat {
+            @apply bg-white border border-zinc-200 rounded-xl p-6 text-center flex flex-col gap-1;
+
+            .num {
+                @apply text-3xl font-serif font-bold text-black;
+            }
+
+            .lbl {
+                @apply text-xs text-zinc-500;
+            }
+        }
+    }
+
+    /* Footer */
+    .footer {
+        @apply border-t border-zinc-200 bg-white mt-auto;
+
+        .footer-inner {
+            @apply max-w-7xl mx-auto px-6 py-14 grid grid-cols-1 md:grid-cols-2 gap-10;
+        }
+
+        .brand-row {
+            @apply flex items-center gap-2 mb-3;
+
+            .logo {
+                @apply text-primary;
+            }
+
+            .name {
+                @apply font-serif font-bold text-lg text-black;
+            }
+        }
+
+        .tagline {
+            @apply text-sm text-zinc-500 max-w-xs;
+        }
+
+        .footer-cols {
+            @apply grid grid-cols-2 md:grid-cols-3 gap-8;
+        }
+
+        .footer-col {
+            @apply flex flex-col gap-2;
+
+            h4 {
+                @apply text-xs font-bold uppercase tracking-widest text-zinc-400 mb-1;
+            }
+
+            a {
+                @apply text-sm text-zinc-600 hover:text-primary transition-colors;
+            }
+        }
+
+        .footer-bottom {
+            @apply max-w-7xl mx-auto px-6 py-6 border-t border-zinc-100 flex flex-col sm:flex-row justify-between gap-2 text-xs text-zinc-400;
+
+            a {
+                @apply hover:text-primary underline underline-offset-2;
+            }
+        }
+    }
+
+    /* Gallery */
+    .gallery-grid {
+        @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6;
+    }
+
+    .gallery-card {
+        @apply relative bg-white rounded-xl overflow-hidden border border-zinc-200 shadow-sm flex flex-col;
+
+        img {
+            @apply w-full aspect-4/3 object-cover;
+        }
+
+        figcaption {
+            @apply p-4 flex items-start justify-between gap-3 bg-white border-t border-zinc-100;
+
+            .gallery-meta {
+                @apply flex flex-col;
+
+                strong {
+                    @apply font-serif font-bold text-black text-base;
+                }
+
+                span {
+                    @apply text-xs text-zinc-500 mt-1;
+                }
+            }
+
+            .gallery-tag {
+                @apply inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 border border-primary/20 rounded-md px-2 py-1 h-fit shrink-0;
+            }
+        }
+
+        .gallery-open {
+            @apply absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md border border-zinc-200 flex items-center justify-center text-zinc-600 hover:bg-primary hover:text-white hover:border-primary transition-colors;
+        }
+    }
+
+    .gallery-loading {
+        @apply text-sm text-zinc-500 text-center py-20;
+    }
+
+    .gallery-empty {
+        @apply flex flex-col items-center gap-4 text-center max-w-md mx-auto py-16 text-zinc-500;
+    }
+
+    .gallery-cta {
+        @apply mt-16 border rounded-2xl;
     }
 }
